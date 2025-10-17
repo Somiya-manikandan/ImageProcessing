@@ -115,8 +115,7 @@
     const image = document.getElementById("image");
     const rgbControls = document.getElementById("rgbControls");
     let originalSrc = "";
-
-    // Upload and display image
+
     upload.addEventListener("change", () => {
       const file = upload.files[0];
       if (file) {
@@ -131,21 +130,19 @@
       }
     });
 
-    // Apply preset filters
+  
     function applyFilter(type) {
       rgbControls.style.display = "none";
       if (type === "grayscale") image.style.filter = "grayscale(100%)";
       else if (type === "sepia") image.style.filter = "sepia(100%)";
       else if (type === "invert") image.style.filter = "invert(100%)";
     }
-
-    // Show RGB sliders
+
     function showRGB() {
       rgbControls.style.display = "flex";
       resetFilters();
     }
-
-    // Apply custom RGB filter
+
     function applyRGB() {
       const r = document.getElementById("red").value;
       const g = document.getElementById("green").value;
@@ -153,14 +150,12 @@
       const avg = (parseInt(r) + parseInt(g) + parseInt(b)) / 3;
       image.style.filter = `brightness(${avg}%)`;
     }
-
-    // Reset to original
+
     function resetImage() {
       image.src = originalSrc;
       resetFilters();
     }
-
-    // Clear filters
+
     function resetFilters() {
       image.style.filter = "none";
       rgbControls.style.display = "none";
@@ -169,7 +164,6 @@
       document.getElementById("blue").value = 100;
     }
 
-    // Download filtered image
     function downloadImage() {
       if (!image.src) {
         alert("Please upload an image first!");
@@ -186,12 +180,10 @@
       img.onload = function() {
         canvas.width = img.width;
         canvas.height = img.height;
-
-        // Apply the current CSS filter to the canvas
+
         ctx.filter = getComputedStyle(image).filter;
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-
-        // Create download link
+
         const link = document.createElement("a");
         link.download = "filtered-image.png";
         link.href = canvas.toDataURL("image/png");
